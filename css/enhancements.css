@@ -1,0 +1,388 @@
+/* Mutual Partners — shared enhancements (nav, breadcrumbs, footer, carousel, heroes, interactions) */
+:root{--mp-gold:#d7c28f;--mp-gold-text:#8a6d2f}
+html{scroll-padding-top:90px}
+.clean-nav{position:sticky!important;top:0;z-index:60}
+
+/* ---- Nav: active state + mobile menu ---- */
+.top-links>a.is-active:not(.nav-cta){border-bottom-color:var(--green)}
+.nav-toggle{display:none;margin-left:10px;width:44px;height:44px;border:1px solid var(--line);border-radius:14px;background:#fff;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:5px;padding:0}
+.nav-toggle span{display:block;width:20px;height:2px;background:var(--green);border-radius:2px;transition:.25s}
+.menu-open .nav-toggle span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.menu-open .nav-toggle span:nth-child(2){opacity:0}
+.menu-open .nav-toggle span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.mp-drawer{display:none;position:absolute;left:0;right:0;top:100%;background:#fffdfa;border-bottom:1px solid var(--line);box-shadow:0 18px 30px rgba(18,61,52,.1);padding:10px 5% 18px;flex-direction:column}
+.mp-drawer a{padding:14px 4px;border-bottom:1px solid #eef1ec;font-weight:700;color:var(--green)}
+.mp-drawer a.is-active{color:var(--mp-gold-text)}
+@media(max-width:860px){.nav-toggle{display:inline-flex}.menu-open .mp-drawer{display:flex}}
+
+/* ---- Breadcrumbs ---- */
+.mp-crumbs{background:var(--cream);padding:14px 7% 0;font-size:13px}
+.mp-crumbs ol{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;max-width:1240px;margin:0 auto}
+.mp-crumbs li{display:flex;align-items:center;gap:10px;color:var(--muted)}
+.mp-crumbs li+li::before{content:"";width:6px;height:6px;border-top:1.5px solid #8a9a95;border-right:1.5px solid #8a9a95;transform:rotate(45deg);margin-right:2px}
+.mp-crumbs a{color:var(--muted);transition:color .2s}
+.mp-crumbs a:hover{color:var(--green)}
+.mp-crumbs li[aria-current]{color:var(--green);font-weight:700;padding-bottom:5px;border-bottom:2px solid var(--mp-gold)}
+
+/* ---- Home: company intro ---- */
+.mp-intro{padding:70px 7% 10px;background:var(--cream)}
+.mp-intro-inner{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.25fr .75fr;gap:48px;align-items:center}
+.mp-intro .eyebrow{display:inline-block}
+.mp-intro h2{font-family:Georgia,serif;font-weight:400;font-size:clamp(30px,4vw,46px);line-height:1.12;color:var(--green);margin:14px 0 18px}
+.mp-intro p{color:var(--muted);line-height:1.75;font-size:17px;max-width:640px;margin:0 0 14px}
+.mp-chips{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 26px}
+.mp-chips span{background:var(--sage);border:1px solid var(--sage2);color:var(--green);font-weight:700;font-size:13px;padding:9px 16px;border-radius:30px;transition:.25s}
+.mp-chips span:hover{background:var(--green);color:#fff;transform:translateY(-2px)}
+.mp-stats{display:grid;gap:14px}
+.mp-stat{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px 24px;display:flex;align-items:center;gap:18px;box-shadow:0 12px 30px rgba(18,61,52,.06);transition:.25s}
+.mp-stat:hover{transform:translateX(6px);box-shadow:0 16px 36px rgba(18,61,52,.12)}
+.mp-stat b{font-family:Georgia,serif;font-size:30px;color:var(--green);font-weight:400;min-width:120px}
+.mp-stat span{color:var(--muted);font-size:14px;line-height:1.4}
+@media(max-width:860px){.mp-intro-inner{grid-template-columns:1fr}.mp-intro{padding-top:46px}}
+
+/* ---- Home: solutions carousel ---- */
+.mp-carousel{position:relative;width:min(980px,92%);margin:34px auto 0;border-radius:30px;overflow:hidden;box-shadow:0 22px 55px rgba(18,61,52,.16);background:#e9efe7}
+.mp-slides{position:relative;aspect-ratio:3/2}
+.mp-slide{position:absolute;inset:0;opacity:0;visibility:hidden;transition:opacity .9s ease,visibility .9s;display:block}
+.mp-slide.is-active{opacity:1;visibility:visible}
+.mp-slide img{width:100%;height:100%;object-fit:cover;display:block;filter:none}
+.mp-slide.is-active img{animation:mpZoom 6s ease-out both}
+@keyframes mpZoom{from{transform:scale(1.04)}to{transform:scale(1)}}
+.mp-slide-cta{position:absolute;right:18px;bottom:18px;background:rgba(255,253,250,.94);color:var(--green);font-weight:800;font-size:13px;padding:11px 18px;border-radius:30px;box-shadow:0 8px 20px rgba(0,0,0,.14);transition:.25s}
+.mp-slide:hover .mp-slide-cta{background:var(--green);color:#fff;transform:translateX(-4px)}
+.mp-arrow{position:absolute;top:50%;transform:translateY(-50%);width:44px;height:44px;border-radius:50%;border:0;background:rgba(255,253,250,.9);color:var(--green);font-size:24px;cursor:pointer;box-shadow:0 8px 20px rgba(0,0,0,.15);opacity:0;transition:.25s;z-index:3}
+.mp-carousel:hover .mp-arrow,.mp-arrow:focus-visible{opacity:1}
+.mp-arrow:hover{background:var(--green);color:#fff}
+.mp-prev{left:14px}.mp-next{right:14px}
+.mp-dots{display:flex;justify-content:center;gap:10px;padding:14px;background:#fffdfa}
+.mp-dot{border:1px solid var(--line);background:#fff;color:var(--green);font-weight:700;font-size:13px;padding:8px 16px;border-radius:30px;cursor:pointer;position:relative;overflow:hidden;transition:.25s}
+.mp-dot.is-active{background:var(--green);color:#fff;border-color:var(--green)}
+.mp-dot:hover:not(.is-active){background:var(--sage)}
+@media(max-width:640px){.mp-arrow{opacity:1;width:38px;height:38px}.mp-slide-cta{font-size:12px;padding:9px 14px}.mp-dot{padding:7px 11px;font-size:12px}}
+
+/* ---- New hero sections (Vision + Investments) ---- */
+.mp-hero{padding:34px 7% 56px;background:var(--cream)}
+.mp-hero-grid{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:1.05fr .95fr;gap:36px;align-items:center}
+.mp-eyebrow{font-size:12px;font-weight:800;letter-spacing:.28em;color:var(--green)}
+.mp-hero h1,.mp-hero h2.mp-h{font-family:Georgia,serif;font-weight:400;font-size:clamp(34px,5vw,58px);line-height:1.06;letter-spacing:-.02em;color:#0f4a3b;margin:18px 0 20px}
+.mp-rule{display:block;width:62px;height:2px;background:var(--mp-gold);margin-bottom:22px}
+.mp-hero p.mp-lead {
+  color: var(--muted);
+  font-size: 18px;
+  line-line: 1.7;
+  /* max-width: 520px; */
+  margin: 0 0 30px;
+  text-align: justify;
+}
+.mp-points{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:560px}
+.mp-points li{text-align:center;transition:transform .25s}
+.mp-points li:hover{transform:translateY(-5px)}
+.mp-points i{display:flex;width:62px;height:62px;border-radius:50%;background:var(--sage2);margin:0 auto 10px;align-items:center;justify-content:center;transition:.25s}
+.mp-points li:hover i{background:var(--green)}
+.mp-points li:hover svg{stroke:#fff}
+.mp-points svg{width:28px;height:28px;stroke:var(--green);fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;transition:.25s}
+.mp-points b{display:block;font-size:11.5px;letter-spacing:.16em;color:var(--green);margin-bottom:5px}
+.mp-points span{font-size:13px;color:var(--muted);line-height:1.4;display:block}
+.mp-hero-art img{width:100%;height:auto;display:block;mix-blend-mode:multiply;image-rendering:auto; margin-top: 100px;}
+@media(max-width:860px){.mp-hero-grid{grid-template-columns:1fr}.mp-hero-art{order:-1;max-width:460px;margin:0 auto}}
+@media(max-width:520px){.mp-points{gap:8px}.mp-points i{width:52px;height:52px}}
+#investments .mp-hero{padding-top:10px}
+
+/* ---- Solutions page images: smaller, crisp, prominent ---- */
+.solution .section-opening-image{width:min(820px,92%)!important;margin:10px auto 34px!important;padding:0!important}
+.solution .section-opening-image img,.portfolio-feature-image img{aspect-ratio:auto!important;width:100%!important;height:auto!important;object-fit:contain!important;filter:none!important;opacity:1!important;image-rendering:auto;border-radius:24px;box-shadow:0 14px 38px rgba(18,61,52,.14)}
+#loan-solution .section-opening-image{width:min(600px,92%)!important}
+.portfolio-feature-inner{width:min(780px,92%)!important;margin:0 auto}
+.portfolio-feature-image{filter:none!important}
+
+/* ---- FAQ hero centered ---- */
+#faq .hero{justify-content:center!important;text-align:center!important}
+#faq .hero .container{width:100%;max-width:880px;margin:0 auto!important;text-align:center!important}
+#faq .hero .eyebrow{display:inline-block}
+#faq .hero h1,#faq .hero p{text-align:center!important;margin-left:auto!important;margin-right:auto!important}
+
+/* ---- Footer ---- */
+footer.mp-footer{display:block!important;padding:0!important;background:linear-gradient(160deg,#0f3b32 0%,#16483d 55%,#123d34 100%);color:#cfe0d8;position:relative;overflow-x:clip;overflow-y:visible;text-align:left!important;margin-top:90px}
+footer.mp-footer::before{content:"";position:absolute;right:-120px;top:70px;width:380px;height:380px;border:46px solid rgba(215,194,143,.09);border-radius:50%}
+footer.mp-footer::after{content:"";position:absolute;left:-90px;bottom:-110px;width:300px;height:300px;border:38px solid rgba(255,255,255,.04);border-radius:50%}
+.mp-footer a{transition:.2s}
+.mp-footer-cta{position:relative;z-index:1;max-width:1100px;margin:-52px auto 0;background:#fffdfa;border:1px solid var(--mp-gold);border-radius:28px;padding:30px 36px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap;box-shadow:0 24px 50px rgba(0,0,0,.18)}
+.mp-footer-cta h3{font-family:Georgia,serif;font-weight:400;font-size:clamp(22px,3vw,30px);color:var(--green);margin:0 0 6px}
+.mp-footer-cta p{margin:0;color:var(--muted);font-size:15px}
+.mp-footer-cta .mp-btn{background:var(--green);color:#fff;font-weight:800;padding:15px 28px;border-radius:40px;white-space:nowrap}
+.mp-footer-cta .mp-btn:hover{background:#0c2f28;transform:translateX(4px)}
+.mp-footer-grid{position:relative;z-index:1;max-width:1240px;margin:0 auto;padding:64px 7% 40px;display:grid;grid-template-columns:1.5fr .8fr .9fr 1.2fr;gap:44px}
+.mp-footer h4{font-size:12px;letter-spacing:.22em;color:var(--mp-gold);margin:0 0 20px;font-weight:800}
+.mp-footer .mp-brand strong{font-family:Georgia,serif;font-size:28px;color:#fff;display:block;margin-bottom:6px}
+.mp-footer .mp-brand em{display:block;font-style:normal;color:var(--mp-gold);letter-spacing:.08em;font-size:13px;margin-bottom:18px}
+.mp-footer .mp-brand p{margin:0 0 22px;line-height:1.7;font-size:14.5px;max-width:340px}
+.mp-socials{display:flex;flex-wrap:wrap;gap:10px}
+.mp-socials a{border:1px solid rgba(255,255,255,.22);color:#fff;font-size:12.5px;font-weight:700;padding:9px 16px;border-radius:30px}
+.mp-socials a:hover{background:var(--mp-gold);border-color:var(--mp-gold);color:#123d34;transform:translateY(-3px)}
+.mp-footer ul{list-style:none;margin:0;padding:0;display:grid;gap:13px}
+.mp-footer ul a{color:#cfe0d8;font-size:14.5px;display:inline-block;position:relative;padding-left:0}
+.mp-footer ul a:hover{color:#fff;padding-left:14px}
+.mp-footer ul a::before{content:"→";position:absolute;left:0;opacity:0;color:var(--mp-gold);transition:.2s}
+.mp-footer ul a:hover::before{opacity:1}
+.mp-contact-list a,.mp-contact-list span{display:block;color:#cfe0d8;font-size:14.5px;line-height:1.5}
+.mp-contact-list small{display:block;font-size:11px;letter-spacing:.18em;color:var(--mp-gold);margin-bottom:3px;font-weight:800}
+.mp-contact-list li{margin:0}
+.mp-contact-list a:hover{color:#fff}
+.mp-footer-legal{position:relative;z-index:1;border-top:1px solid rgba(255,255,255,.12);padding:22px 7% 26px;max-width:1240px;margin:0 auto;display:flex;justify-content:space-between;gap:18px 30px;flex-wrap:wrap;font-size:12.5px;line-height:1.7;color:#a9c2b8}
+.mp-footer-legal p{margin:0;max-width:760px}
+.mp-footer-legal b{color:#fff}
+@media(max-width:900px){.mp-footer-grid{grid-template-columns:1fr 1fr;gap:36px}}
+@media(max-width:560px){.mp-footer-grid{grid-template-columns:1fr;padding-top:48px}.mp-footer-cta{margin:-40px 5% 0;padding:24px}}
+
+/* ---- Global interactions ---- */
+.mp-progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--mp-gold),var(--green));z-index:100;transition:width .1s linear}
+.mp-top{position:fixed;right:22px;bottom:22px;width:48px;height:48px;border-radius:50%;border:0;background:var(--green);color:#fff;font-size:20px;cursor:pointer;box-shadow:0 12px 26px rgba(18,61,52,.3);opacity:0;transform:translateY(14px);pointer-events:none;transition:.3s;z-index:70}
+.mp-top.show{opacity:1;transform:none;pointer-events:auto}
+.mp-top:hover{background:#0c2f28;transform:translateY(-4px)}
+.mp-reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.mp-reveal.in{opacity:1;transform:none}
+.card,.mini,.approach-card,.qc-step,.sif-showcase-card,.coverage-item,.value{transition:transform .25s ease,box-shadow .25s ease}
+.card:hover,.approach-card:hover,.qc-step:hover,.sif-showcase-card:hover,.value:hover{transform:translateY(-5px);box-shadow:0 18px 40px rgba(18,61,52,.12)}
+.mini:hover,.coverage-item:hover{transform:translateY(-3px)}
+.btn{transition:transform .2s ease,box-shadow .2s ease,background .2s ease}
+.btn:hover{transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.mp-reveal{opacity:1;transform:none;transition:none}.mp-slide,.mp-slide.is-active img{transition:none;animation:none}html{scroll-behavior:auto}}
+
+footer.mp-footer *{text-align:left}
+.mp-footer-cta{text-align:left}
+
+/* FAQ answers: allow long text */
+.accordion.open .answer{max-height:1200px!important}
+
+/* ================= Mobile-friendly pass ================= */
+html{-webkit-text-size-adjust:100%;text-size-adjust:100%}
+body{overflow-x:clip}
+img,svg,video{max-width:100%}
+input,select,textarea{font-size:16px}
+.mp-top{bottom:calc(22px + env(safe-area-inset-bottom,0px));right:calc(18px + env(safe-area-inset-right,0px))}
+@media(hover:none){.card:hover,.approach-card:hover,.qc-step:hover,.sif-showcase-card:hover,.value:hover,.mini:hover,.coverage-item:hover,.mp-stat:hover,.mp-points li:hover{transform:none;box-shadow:none}}
+@media(max-width:900px){
+  .clean-nav{padding-left:4%!important;padding-right:4%!important}
+  .solution-section-title{padding-left:20px!important;padding-right:20px!important}
+}
+@media(max-width:640px){
+  html{scroll-padding-top:72px}
+  .clean-nav .brand-logo{max-height:46px;width:auto}
+  .nav-cta{white-space:nowrap;padding:11px 16px!important;font-size:13px!important;min-height:44px;display:inline-flex;align-items:center}
+  .nav-toggle{margin-left:8px;flex:none}
+  .mp-drawer a{min-height:48px;display:flex;align-items:center;font-size:16px}
+  .mp-crumbs{padding:12px 5% 0;font-size:12.5px}
+  .mp-crumbs li{gap:7px}
+  .mp-hero{padding:22px 5% 40px}
+  .mp-hero p.mp-lead{font-size:16px}
+  .mp-hero-art{max-width:340px}
+  .mp-intro{padding:40px 5% 6px}
+  .mp-carousel{width:calc(100% - 10%);border-radius:22px;margin-top:24px}
+  .mp-dots{gap:6px;padding:12px 8px;flex-wrap:wrap}
+  .mp-dot,.top-solution,.tab,.question{min-height:44px}
+  .tabs{display:flex;gap:8px;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none;padding-bottom:4px}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:none;white-space:nowrap}
+  .question{padding-top:16px;padding-bottom:16px;text-align:left}
+  .btn,.mp-btn{min-height:48px}
+  .mp-footer-grid{padding:44px 6% 28px;gap:30px}
+  .mp-footer-cta{margin:-36px 5% 0;padding:22px;flex-direction:column;align-items:flex-start}
+  .mp-footer-cta .mp-btn{width:100%;text-align:center;min-height:48px;display:flex;align-items:center;justify-content:center}
+  .mp-socials a{min-height:44px;display:inline-flex;align-items:center;padding:0 16px}
+  .mp-footer ul a,.mp-contact-list a{padding-top:4px;padding-bottom:4px}
+  .mp-footer-legal{padding:20px 6% 28px}
+  footer.mp-footer{margin-top:70px}
+  .welcome-popup-card{max-height:92vh;overflow-y:auto;-webkit-overflow-scrolling:touch}
+  .footer-contact-links a{min-height:56px}
+}
+@media(max-width:380px){.mp-points{gap:4px}.mp-points b{font-size:10.5px;letter-spacing:.1em}.nav-cta{padding:10px 12px!important}}
+
+/* =====================================================================
+   v3 — Type scale, full-width text, buttons, popup, heroes, insurance
+   ===================================================================== */
+:root{--fs-h1:48px;--fs-h2:36px;--fs-h3:24px;--fs-h4:19px;--fs-body:17px;--mp-btn:#145A42;--mp-btn-dk:#0f4733;--mp-grey:#9CA3AF;--mp-grey-dk:#8b929f;--mp-ink:#111827}
+@media(max-width:768px){:root{--fs-h1:32px;--fs-h2:26px;--fs-h3:20px;--fs-h4:17px;--fs-body:16px}}
+h1{font-size:var(--fs-h1)!important;line-height:1.12!important;letter-spacing:-.01em!important}
+h2{font-size:var(--fs-h2)!important;line-height:1.18!important}
+h3{font-size:var(--fs-h3)!important;line-height:1.25!important}
+h4{font-size:var(--fs-h4)!important;line-height:1.3!important}
+p,li{font-size:var(--fs-body)!important;line-height:1.7!important}
+/* intentional small text */
+.mp-footer p,.mp-footer li,.mp-crumbs li,.mutual-fund-legal p,.insurance-disclaimer p,.sif-showcase-note,.qc-small-note,.welcome-popup-note{font-size:14px!important;line-height:1.65!important}
+.mp-footer h3{font-size:var(--fs-h3)!important}
+.mp-footer h4{font-size:12px!important}
+.welcome-popup-title{font-size:26px!important}
+.welcome-popup-copy{font-size:16px!important}
+.welcome-popup-note{font-size:12px!important}
+/* use the full width instead of half-width columns */
+p,.section-intro,.lead,h1,h2,h3,.section-head,.sectionhead,.solution-section-title,.solution-section-title>*,.investment-panel-heading,.investment-panel-heading>*,.insurance-section-heading,.insurance-section-heading>*,.sectionhead>*,.section-head>*{max-width:none!important}
+.section-head,.sectionhead,.investment-panel-heading{width:100%}
+
+/* ---- Logo ---- */
+.clean-nav .brand-logo{width:240px!important;height:92px!important;object-fit:contain!important}
+@media(max-width:900px){.clean-nav .brand-logo{width:200px!important;height:76px!important}}
+@media(max-width:640px){.clean-nav .brand-logo{width:170px!important;height:64px!important}}
+
+/* ---- Buttons (green + grey) ---- */
+.btn,a.btn,.mp-btn,.nav-cta,.welcome-popup-submit{display:inline-flex!important;align-items:center;justify-content:center;gap:8px;padding:14px 28px!important;border-radius:12px!important;font-weight:700!important;font-size:16px!important;line-height:1.2!important;border:2px solid transparent!important;text-decoration:none!important;cursor:pointer;min-height:48px;box-shadow:0 4px 0 rgba(0,0,0,.12),0 8px 18px rgba(18,61,52,.12);transition:background .2s,transform .15s,box-shadow .15s}
+.btn.primary,.btn.primary *,.nav-cta,.mp-btn,.welcome-popup-submit,.insurance-cta-btn,.insurance-review-cta,.home-loan-cta{color:#fff!important}
+.btn.primary,.nav-cta,.mp-btn,.welcome-popup-submit,.insurance-cta-btn,.insurance-review-cta,.home-loan-cta{background:var(--mp-btn)!important;border-color:var(--mp-btn)!important}
+.btn.primary:hover,.nav-cta:hover,.mp-btn:hover,.welcome-popup-submit:hover{background:var(--mp-btn-dk)!important;border-color:var(--mp-btn-dk)!important}
+.btn.secondary{background:var(--mp-grey)!important;border-color:var(--mp-grey)!important;color:var(--mp-ink)!important}
+.btn.secondary:hover{background:var(--mp-grey-dk)!important;border-color:var(--mp-grey-dk)!important}
+.btn:hover,.mp-btn:hover,.nav-cta:hover{transform:translateY(-2px)}
+.btn:active,.mp-btn:active,.nav-cta:active{transform:translateY(2px);box-shadow:0 1px 0 rgba(0,0,0,.12)}
+.nav-cta{padding:10px 22px!important;font-size:15px!important;min-height:44px}
+.buttons,.mutual-portfolio-actions,.insurance-closing-buttons{gap:14px!important}
+.mutual-portfolio-actions .btn{width:auto!important;min-width:220px}
+.insurance-checkup-bottom,.insurance-action{text-align:center}
+.insurance-checkup-bottom .btn,.insurance-action .btn{margin-top:14px}
+/* buttons on dark green sections stay readable */
+.insurance-closing-cta .btn.primary{background:#fff!important;color:var(--mp-btn)!important;border-color:#fff!important}
+.insurance-closing-cta .btn.primary:hover{background:#e8f1e6!important}
+
+/* ---- Welcome popup: fits one screen ---- */
+.welcome-popup{padding:10px!important}
+.welcome-popup-card{width:min(520px,94vw)!important;max-height:98vh!important;padding:18px 24px 16px!important;border-radius:22px!important}
+.welcome-popup-logo{width:64px!important;height:64px!important;margin:0 auto 6px!important;padding:6px!important}
+.welcome-popup-title{margin:0 28px 4px!important;line-height:1.15!important}
+.welcome-popup-copy{margin:0 auto 10px!important}
+.welcome-popup-copy br{display:none}
+.welcome-popup-form{grid-template-columns:1fr 1fr!important;gap:9px!important}
+.welcome-popup-form>*{grid-column:1/-1}
+.welcome-popup-form>input[name=firstName],.welcome-popup-form>input[name=lastName]{grid-column:auto}
+.welcome-popup-form input,.welcome-popup-phone select{padding:11px 14px!important;font-size:16px!important}
+.welcome-popup-submit{margin-top:2px!important;width:100%}
+.welcome-popup-note{margin:2px 0 0!important}
+@media(max-height:620px){.welcome-popup-logo{display:none}.welcome-popup-card{padding:14px 20px!important}}
+
+/* ---- Hero sections (Vision + Investments): heading uses full width ---- */
+.mp-hero{padding:26px 7% 50px}
+.mp-hero-wide{max-width:1240px;margin:0 auto 26px}
+.mp-hero-wide h1,.mp-hero-wide h2.mp-h,.mp-hero-wide .mp-tag{margin:8px 0 12px!important;color:#0f4a3b}
+.mp-hero-wide .mp-tag{font-family:Georgia,serif;font-weight:400}
+.mp-hero-wide .mp-rule{margin:6px 0 14px}
+.mp-hero-grid{align-items:stretch!important;grid-template-columns:1.15fr .85fr;gap:44px}
+.mp-hero-copy p{margin:0 0 16px!important;color:var(--muted)}
+.mp-hero-copy p.mp-lead{font-size:var(--fs-body)!important;color:var(--green);font-weight:600;max-width:none!important}
+.mp-hero-art{display:flex}
+.mp-hero-art img{width:100%;height:100%;min-height:300px;object-fit:cover;border-radius:28px;mix-blend-mode:normal!important;box-shadow:0 22px 50px rgba(18,61,52,.16)}
+.mp-points{max-width:1240px!important;margin:40px auto 0!important;grid-template-columns:repeat(3,1fr)!important;gap:28px!important}
+.mp-points li{background:#fff;border:1px solid var(--line);border-radius:24px;padding:28px 22px;box-shadow:0 14px 34px rgba(18,61,52,.07)}
+.mp-points i{width:96px!important;height:96px!important;margin-bottom:16px!important}
+.mp-points svg{width:44px!important;height:44px!important}
+.mp-points b{font-size:15px!important;letter-spacing:.14em!important;margin-bottom:8px!important}
+.mp-points span{font-size:16px!important;line-height:1.5!important}
+@media(max-width:860px){.mp-hero-grid{grid-template-columns:1fr!important}.mp-hero-art{order:0!important;max-width:none!important}.mp-hero-art img{min-height:240px}.mp-points{grid-template-columns:1fr!important;gap:16px!important}}
+#investments .mp-hero{padding-top:10px}
+
+/* ---- Insurance & Loans: blue -> brand green ---- */
+.insurance-kicker,.insurance-check-box,.insurance-advisor-icon,.insurance-quote-accent{color:#16483D!important}
+.insurance-approach-section,.insurance-advisor-section,.insurance-not-one-size,.insurance-checkup-section{background:#f3f7f1!important}
+.insurance-closing-cta{background:linear-gradient(135deg,#1d5a4c 0%,#16483D 55%,#0f3b32 100%)!important;position:relative;overflow:hidden}
+.insurance-closing-cta::before,.insurance-closing-cta::after{content:"";position:absolute;border:1px solid rgba(215,194,143,.35);border-radius:50%;pointer-events:none}
+.insurance-closing-cta::before{width:620px;height:620px;left:-200px;bottom:-380px}
+.insurance-closing-cta::after{width:520px;height:520px;right:-160px;top:-300px}
+.insurance-closing-inner{position:relative;z-index:1}
+.insurance-closing-cta h2,.insurance-closing-cta p,.insurance-closing-lead{color:#fff!important}
+.insurance-closing-cta .insurance-kicker{color:#d7c28f!important}
+.insurance-closing-cta h2{font-family:Georgia,serif;font-weight:400!important;text-transform:none!important}
+section[style*="eef2ff"]{background:#eef4ec!important}
+/* approach steps -> cards */
+.insurance-steps{display:grid!important;grid-template-columns:repeat(5,1fr)!important;gap:18px!important;margin-top:36px;max-width:1240px;margin-left:auto;margin-right:auto}
+.insurance-step{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:14px!important;background:#fff!important;border:1px solid #dfe6df!important;border-radius:22px!important;padding:26px 22px!important;box-shadow:0 14px 32px rgba(18,61,52,.07);position:relative;border-bottom:1px solid #dfe6df!important;transition:transform .25s,box-shadow .25s}
+.insurance-step:hover{transform:translateY(-5px);box-shadow:0 20px 40px rgba(18,61,52,.13)}
+.insurance-step>span{width:52px!important;height:52px!important;border-radius:50%!important;background:#16483D!important;color:#fff!important;display:grid!important;place-items:center;font-size:17px!important;font-weight:800;flex:none}
+.insurance-step h3{letter-spacing:.03em;margin:0 0 6px!important;color:#16483D}
+.insurance-step p{margin:0!important;color:var(--muted)}
+@media(max-width:1000px){.insurance-steps{grid-template-columns:repeat(2,1fr)!important}}
+@media(max-width:560px){.insurance-steps{grid-template-columns:1fr!important}}
+/* illustrated cover cards */
+.mp-cover-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:1100px;margin:30px auto 0}
+.mp-cover-card{display:block;border-radius:22px;overflow:hidden;background:#f6f9f5;box-shadow:0 14px 30px rgba(18,61,52,.09);transition:transform .25s,box-shadow .25s}
+.mp-cover-card:hover{transform:translateY(-6px);box-shadow:0 22px 44px rgba(18,61,52,.16)}
+.mp-cover-card img{display:block;width:100%;height:auto}
+@media(max-width:700px){.mp-cover-grid{grid-template-columns:1fr 1fr;gap:12px}}
+/* savings plan: two cards */
+.mp-split{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.mp-split-card{background:#fff;border:1px solid var(--line);border-left:5px solid var(--green);border-radius:22px;padding:28px 28px 24px;box-shadow:0 14px 32px rgba(18,61,52,.07)}
+.mp-split-card i{display:grid;place-items:center;width:56px;height:56px;border-radius:50%;background:var(--sage2);margin-bottom:14px}
+.mp-split-card svg{width:28px;height:28px;stroke:var(--green);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.mp-split-card h3{margin:0 0 10px!important;color:var(--green)}
+.mp-split-card p{margin:0!important;color:var(--muted)}
+@media(max-width:760px){.mp-split{grid-template-columns:1fr}}
+/* AMC wordmarks */
+.amc-wordmark{font-family:Arial,Helvetica,sans-serif;font-weight:800;font-size:19px;line-height:1.1;text-align:center;display:block}
+.amc-wordmark small{display:block;font-size:10px;letter-spacing:.1em;font-weight:700;color:#718579;margin-top:4px;text-transform:uppercase}
+.amc-hdfc{color:#004c8f}.amc-sbi{color:#1b4d91}.amc-icici{color:#b3282d}.amc-nippon{color:#d71a28}.amc-absl{color:#c8102e}.amc-kotak{color:#e31837}
+
+/* ---- About page ---- */
+h1.about-heading{font-family:Georgia,serif!important;font-weight:400!important;letter-spacing:-.01em!important;text-transform:none!important;color:var(--green)!important;text-align:center;margin:0 0 18px!important}
+.about-name{text-align:center;position:relative;z-index:5;margin-top:16px;font-family:Georgia,serif;font-size:28px;color:var(--green)}
+.role-icon svg,.value-icon svg{stroke:var(--green);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.role-icon svg{width:24px;height:24px}
+.role-icon{font-size:0!important}
+.role strong{font-size:16px!important}
+.value-icon{font-size:0!important;position:relative}
+.value-icon svg{width:40px;height:40px}
+.value-icon::after{content:"";position:absolute;right:6px;top:10px;width:7px;height:7px;border-radius:50%;background:var(--gold)}
+.quote-card{min-height:320px!important;background-size:cover!important;background-position:right center!important;position:relative;overflow:hidden;justify-content:flex-end!important}
+.quote-card::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(22,72,61,.9) 0%,rgba(22,72,61,.6) 45%,rgba(22,72,61,0) 85%)}
+.quote-card>*{position:relative;z-index:1}
+.quote-card strong,.quote-card .quote-mark{color:#fff!important}
+.quote-card strong{font-size:var(--fs-h2)!important}
+.quote-line{background:var(--gold)!important}
+
+/* ---- Vision: on-brand approach road ---- */
+.infographic-wrap.mp-road-wrap{background:#fffdfa!important;border:1px solid var(--line);border-radius:28px;padding:34px 28px 30px!important;box-shadow:0 22px 50px rgba(0,0,0,.18)}
+.mp-road{position:relative;max-width:1180px;margin:0 auto}
+.mp-road-svg{width:100%;height:110px;display:block}
+.mp-road-steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:-60px;position:relative}
+.mp-road-step{text-align:center;padding:0 6px}
+.mp-road-step b{display:grid;place-items:center;width:58px;height:58px;border-radius:50%;background:#16483D;color:#fff;margin:0 auto 12px;border:4px solid #fffdfa;box-shadow:0 0 0 2px #d7c28f;font-size:17px}
+.mp-road-step h3{color:#16483D!important;margin:0 0 6px!important}
+.mp-road-step p{color:#53645f!important;margin:0!important}
+@media(max-width:760px){.mp-road-svg{display:none}.mp-road-steps{grid-template-columns:1fr 1fr;margin-top:0;gap:26px 14px}}
+@media(max-width:460px){.mp-road-steps{grid-template-columns:1fr}}
+
+/* ---- fixes round 2 ---- */
+.mp-crumbs ol{width:100%;max-width:1240px;justify-content:flex-start}
+.mp-hero-art{position:relative;min-height:340px}
+.mp-hero-art img{position:absolute;inset:0;height:100%!important;min-height:0!important}
+footer.mp-footer{overflow:clip!important;clip-path:none!important;background-color:transparent!important;background-image:linear-gradient(160deg,#0f3b32 0%,#16483d 55%,#123d34 100%)!important;background-size:100% calc(100% - 52px)!important;background-position:bottom!important;background-repeat:no-repeat!important}
+.mp-footer-cta{margin:0 auto!important}
+.mp-footer-grid{padding-top:56px!important}
+@media(max-width:560px){.mp-footer-cta{margin:0 5%!important}}
+.bottom h2{color:#fff!important}
+.about-more{grid-template-columns:1.15fr .85fr!important;gap:56px!important;max-width:1240px!important}
+@media(max-width:860px){.about-more{grid-template-columns:1fr!important;gap:28px!important}}
+.mp-hero-art img{margin-top:0!important}
+.insurance-action{display:flex!important;justify-content:center;margin-top:22px}
+/* ---- fixes round 3 ---- */
+@media(min-width:901px){
+  .solution-section-title,.investment-panel-heading{max-width:1240px!important;margin-left:auto!important;margin-right:auto!important;padding-left:7%!important;padding-right:7%!important;box-sizing:border-box}
+}
+.amc-logo .amc-wordmark{font-family:Arial,Helvetica,sans-serif;font-size:19px!important;font-weight:800;line-height:1.1;letter-spacing:0;margin:0;display:block;text-align:center}
+.amc-logo .amc-wordmark small{display:block;font-size:10px!important;letter-spacing:.1em;font-weight:700;color:#718579!important;margin-top:4px;text-transform:uppercase}
+.amc-logo .amc-hdfc{color:#004c8f}.amc-logo .amc-sbi{color:#1b4d91}.amc-logo .amc-icici{color:#b3282d}.amc-logo .amc-nippon{color:#d71a28}.amc-logo .amc-absl{color:#c8102e}.amc-logo .amc-kotak{color:#e31837}
+#loan-solution .section-opening-image{width:min(520px,92%)!important}
+html body .lively-hero .hero-copy h1,html body .hero-copy h1,html body .hero h1{font-size:var(--fs-h1)!important}
+html body p.section-intro,html body .insurance-approach-lead,html body .insurance-quote,html body p.lead{font-size:var(--fs-body)!important}
+
+.mp-hero-copy p{text-align:left!important}
+
+/* ---- Solutions hero: text left, image right ---- */
+#investments .mp-hero-grid{align-items:center!important;grid-template-columns:1.1fr .9fr;gap:48px}
+#investments .mp-hero-copy{display:flex;flex-direction:column;justify-content:center;text-align:left}
+#investments .mp-hero-copy h2.mp-h{margin:0 0 14px!important;text-align:left}
+#investments .mp-hero-copy .mp-rule{margin:0 0 22px}
+#investments .mp-hero-copy p.mp-lead{margin:0!important;max-width:none}
+#investments .mp-hero-art{order:2;min-height:360px}
+@media(max-width:860px){#investments .mp-hero-grid{grid-template-columns:1fr!important}#investments .mp-hero-art{min-height:260px}}
+
+/* ---- FAQ hero: centered, full width, heading stays on one line ---- */
+#faq .hero{display:flex!important;justify-content:center!important;align-items:center!important;width:100%;padding-left:4%!important;padding-right:4%!important;box-sizing:border-box}
+#faq .hero .container{width:100%!important;max-width:100%!important;margin:0 auto!important;text-align:center!important}
+#faq .hero h1{max-width:none!important;width:100%;white-space:nowrap;font-size:clamp(26px,5.6vw,72px)!important;text-align:center!important}
+#faq .hero p{max-width:760px!important;text-align:center!important}
+@media(max-width:560px){#faq .hero h1{white-space:normal}}
